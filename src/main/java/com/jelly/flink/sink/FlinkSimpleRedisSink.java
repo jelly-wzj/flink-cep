@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
- * @author jenkin
+ * @author jelly
  * <p>
  * 默认以json字符串存储
  */

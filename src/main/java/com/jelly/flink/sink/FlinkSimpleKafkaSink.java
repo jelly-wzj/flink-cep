@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Properties;
 
 /**
- * @author jenkin
+ * @author jelly
  */
 public class FlinkSimpleKafkaSink implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -1,10 +1,7 @@
 package com.jelly.flink.util;
 
 import com.jelly.flink.entity.JobDetail;
-import com.jelly.flink.sink.FlinkSimpleElasticsearchSink;
-import com.jelly.flink.sink.FlinkSimpleHbaseSink;
-import com.jelly.flink.sink.FlinkSimpleKafkaSink;
-import com.jelly.flink.sink.FlinkSimpleMysqlSink;
+import com.jelly.flink.sink.*;
 import com.jelly.flink.source.FlinkSimpleHBaseSource;
 import com.jelly.flink.source.FlinkSimpleKafkaSource;
 import com.jelly.flink.source.FlinkSimpleMysqlSource;
@@ -31,6 +28,7 @@ public final class SourceSinkConstructor {
         put("KAFKA", "createKafkaSink");
         put("ELASTICSEARCH", "createElasticsearchSink");
         put("MYSQL", "createMysqlSink");
+        put("REDIS", "createRedisSink");
     }};
 
     private SourceSinkConstructor() {
@@ -88,5 +86,9 @@ public final class SourceSinkConstructor {
     private static SinkFunction createMysqlSink() {
         String[] userAndPass = sinkDetail.getAuth().split(":");
         return new FlinkSimpleMysqlSink(sinkDetail.getHost(), userAndPass[0], userAndPass[1], sinkDetail.getStore());
+    }
+
+    private static SinkFunction createRedisSink() {
+        return new FlinkSimpleRedisSink(sinkDetail.getHost()).build();
     }
 }
