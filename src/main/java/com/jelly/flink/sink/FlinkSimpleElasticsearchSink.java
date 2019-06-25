@@ -57,9 +57,9 @@ public class FlinkSimpleElasticsearchSink implements Serializable {
                     LOG.error(e.getMessage());
                 }
             }
-        }}, (ElasticsearchSinkFunction<String>) (data, runtimeContext, requestIndexer) -> {
+        }}, (ElasticsearchSinkFunction<Map<String, Object>>) (data, runtimeContext, requestIndexer) -> {
             final IndexRequest flinkIndexRequest = new IndexRequest(indexName, indexName);
-            flinkIndexRequest.source(JSON.parseObject(data, Map.class));
+            flinkIndexRequest.source(data);
             requestIndexer.add(flinkIndexRequest);
         });
     }
