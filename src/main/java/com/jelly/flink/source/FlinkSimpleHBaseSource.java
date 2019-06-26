@@ -1,6 +1,7 @@
 package com.jelly.flink.source;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.jelly.flink.common.FlinkRealtimeConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.flink.api.java.tuple.Tuple2;
@@ -24,7 +25,7 @@ import java.util.Map;
 /**
  * @author jenkin
  */
-public class FlinkSimpleHBaseSource extends RichSourceFunction<Tuple2<String, String>> {
+public class FlinkSimpleHBaseSource extends RichSourceFunction<String> {
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = LoggerFactory.getLogger(FlinkSimpleHBaseSource.class);
 
@@ -63,7 +64,7 @@ public class FlinkSimpleHBaseSource extends RichSourceFunction<Tuple2<String, St
     }
 
     @Override
-    public void run(SourceContext<Tuple2<String, String>> ctx) throws Exception {
+    public void run(SourceContext<String> ctx) throws Exception {
         final Scan scan = new Scan();
         scan.addFamily(Bytes.toBytes(FlinkRealtimeConstants.HBASE_COMMON_CF));
         scan.setCaching(1000);
@@ -85,10 +86,7 @@ public class FlinkSimpleHBaseSource extends RichSourceFunction<Tuple2<String, St
                 String cellValue = new String(CellUtil.cloneValue(cell), "UTF-8").trim();
                 resMap.put(cellName, cellValue);
             }
-
-            Tuple2<String, String> tuple2 = new Tuple2<>();
-            tuple2.setFields(Bytes.toString(result.getRow()), JSON.toJSONString(resMap));
-            ctx.collect(tuple2);
+            ctx.collect(JSON.toJSONString(resMap, SerializerFeature.WriteNullStringAsEmpty));
         }
     }
 

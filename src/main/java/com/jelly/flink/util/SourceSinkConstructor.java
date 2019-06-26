@@ -2,6 +2,7 @@ package com.jelly.flink.util;
 
 import com.jelly.flink.entity.JobDetail;
 import com.jelly.flink.sink.*;
+import com.jelly.flink.source.FlinkSimpleElasticsearchSource;
 import com.jelly.flink.source.FlinkSimpleHBaseSource;
 import com.jelly.flink.source.FlinkSimpleKafkaSource;
 import com.jelly.flink.source.FlinkSimpleMysqlSource;
@@ -21,6 +22,7 @@ public final class SourceSinkConstructor {
         put("HBASE", "createHbaseSource");
         put("KAFKA", "createKafkaSource");
         put("MYSQL", "createMysqlSource");
+        put("ELASTICSEARCH", "createElasticsearchSource");
     }};
     // sink
     private final static Map<String, String> SINKS = new HashMap<String, String>() {{
@@ -64,6 +66,10 @@ public final class SourceSinkConstructor {
     private static SourceFunction createMysqlSource() {
         String[] userAndPass = sourceDetail.getAuth().split(":");
         return new FlinkSimpleMysqlSource(sourceDetail.getHost(), userAndPass[0], userAndPass[1], sourceDetail.getResource());
+    }
+
+    private static SourceFunction createElasticsearchSource() {
+        return new FlinkSimpleElasticsearchSource(sourceDetail.getId(), sourceDetail.getAuth(), sourceDetail.getHost(), sourceDetail.getResource());
     }
 
     /**
