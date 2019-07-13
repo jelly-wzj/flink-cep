@@ -1,9 +1,10 @@
-package com.jelly.flink.main;
+package com.jelly.flink;
 
 import com.alibaba.fastjson.JSON;
 import com.jelly.flink.entity.DataStreamDetail;
 import com.jelly.flink.entity.JobDetail;
 import com.jelly.flink.functions.AviatorRegexFunctionExtension;
+import com.jelly.flink.util.AbstractStreamEnv;
 import com.jelly.flink.util.SourceSinkConstructor;
 import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +19,6 @@ import org.apache.flink.streaming.siddhi.SiddhiStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +30,7 @@ import java.util.Map;
  * @author jelly.wang
  * @create 2019/03/26
  */
-public class CepMain extends AbstractStreamMain {
+public class CepMain extends AbstractStreamEnv {
     private final static String JOB_NAME = CepMain.class.getSimpleName();
     private final static Logger LOG = LoggerFactory.getLogger(CepMain.class.getName());
 
@@ -38,20 +38,24 @@ public class CepMain extends AbstractStreamMain {
         init();
     }
 
-    public static void main(String[] args) throws ParseException, IllegalAccessException, IOException, InstantiationException {
+    public static void main(String[] args) {
         // 解析参数
         final CommandLineParser parser = new DefaultParser();
         final Options options = new Options();
         options.addOption("jd", "jobDetail", true, "Set the rules for running the flink job.");
 
-        JobDetail jobDetail = null;
-
-        CommandLine commandLine = parser.parse(options, args);
-        if (commandLine.hasOption("jd")) {
-            jobDetail = JSON.parseObject(commandLine.getOptionValue("jd"), JobDetail.class);
-        } else {
-            new HelpFormatter().printHelp(" ", options);
-            System.exit(-1);
+        JobDetail jobDetail;
+        try {
+            CommandLine commandLine = parser.parse(options, args);
+            if (commandLine.hasOption("jd")) {
+                jobDetail = JSON.parseObject(commandLine.getOptionValue("jd"), JobDetail.class);
+            } else {
+                new HelpFormatter().printHelp(" ", options);
+                return;
+            }
+        } catch (ParseException e) {
+            LOG.error(e.getMessage());
+            return;
         }
 
         final CepMain nm = new CepMain();

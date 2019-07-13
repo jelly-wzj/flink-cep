@@ -1,17 +1,17 @@
-package com.jelly.flink.main;
+package com.jelly.flink.util;
 
 import org.apache.flink.streaming.api.CheckpointingMode;
 import org.apache.flink.streaming.api.environment.CheckpointConfig;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 /**
- * AbstractStreamMain
+ * AbstractStreamEnv
  * <p>
  *
  * @author jelly.wang
  * @create 2019/03/26
  */
-public abstract class AbstractStreamMain {
+public abstract class AbstractStreamEnv {
     private StreamExecutionEnvironment env;
 
     public StreamExecutionEnvironment getEnv() {
