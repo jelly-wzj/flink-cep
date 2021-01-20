@@ -1,6 +1,5 @@
 package com.jelly.flink.sink;
 
-import com.alibaba.fastjson.JSON;
 import com.jelly.flink.common.FlinkRealtimeConstants;
 import com.jelly.flink.sink.hbase.HbaseConnectorDescription;
 import com.jelly.flink.sink.hbase.HbaseMapper;

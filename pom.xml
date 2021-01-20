@@ -14,22 +14,22 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <scala.binary.version>2.12</scala.binary.version>
+        <scala.binary.version>2.11</scala.binary.version>
         <flink.version>1.11.3</flink.version>
-        <hadoop.version>2.7.5</hadoop.version>
-        <hbase.version>1.4.3</hbase.version>
-        <fastjson.version>1.2.56</fastjson.version>
-        <siddhi.version>4.5.11</siddhi.version>
-        <flinksiddhi.version>0.2.0-SNAPSHOT</flinksiddhi.version>
+        <hadoop.version>2.10.1</hadoop.version>
+        <hbase.version>1.4.13</hbase.version>
+        <fastjson.version>1.2.75</fastjson.version>
+        <siddhi.version>5.1.2</siddhi.version>
+        <flinksiddhi.version>0.2.2-SNAPSHOT</flinksiddhi.version>
         <commons.version>1.4</commons.version>
-        <lombok.version>1.18.8</lombok.version>
-        <joor.version>0.9.7</joor.version>
-        <cglib.version>3.2.4</cglib.version>
-        <aviator.version>4.1.2</aviator.version>
+        <lombok.version>1.18.16</lombok.version>
+        <joor.version>0.9.13</joor.version>
+        <cglib.version>3.3.0</cglib.version>
+        <aviator.version>4.2.10</aviator.version>
         <redis.version>1.1.5</redis.version>
-        <jdbc.version>1.7.2</jdbc.version>
+        <jdbc.version>1.10.2</jdbc.version>
         <dbutils.version>1.7</dbutils.version>
-        <druid.version>1.1.12</druid.version>
+        <druid.version>1.2.4</druid.version>
         <mysql.version>5.1.47</mysql.version>
     </properties>
 
@@ -37,6 +37,11 @@
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-core</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-clients_2.11</artifactId>
             <version>${flink.version}</version>
         </dependency>
         <!-- <dependency>
@@ -61,28 +66,18 @@
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-redis_2.11</artifactId>
-            <version>1.1.5</version>
+            <artifactId>flink-jdbc_${scala.binary.version}</artifactId>
+            <version>${jdbc.version}</version>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-table</artifactId>
-            <version>${flink.version}</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-redis_${scala.binary.version}</artifactId>
+            <artifactId>flink-connector-redis_2.11</artifactId>
             <version>${redis.version}</version>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-elasticsearch5_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-jdbc_${scala.binary.version}</artifactId>
-            <version>${jdbc.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.haoch</groupId>
@@ -95,7 +90,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>

@@ -85,22 +85,18 @@ public class CepMain extends AbstractStreamEnv {
 
         final SiddhiStream.SingleSiddhiStream<Map<String, Object>> singleSiddhiStream = siddhiCEP.from(dataStreamDetail.getInputStreamId(), dataStreamDetail.getDataStream(), getTypeInformation(dataStreamDetail.getTypeList()), dataStreamDetail.getFieldList());
         if (dataStreamDetails.size() > 0) {
-            dataStreamDetails.forEach((dd) -> {
-                singleSiddhiStream.union(dd.getInputStreamId(), dd.getDataStream(), getTypeInformation(dd.getTypeList()), dd.getFieldList());
-            });
+            dataStreamDetails.forEach((dd) -> singleSiddhiStream.union(dd.getInputStreamId(), dd.getDataStream(), getTypeInformation(dd.getTypeList()), dd.getFieldList()));
         }
 
         DataStream<Map<String, Object>> output = singleSiddhiStream.cql(jobDetail.getCql()).returnAsMap(jobDetail.getOutputStreamId());
 
-        jobDetail.getSinks().forEach((s) -> {
-            output.rebalance().addSink(SourceSinkConstructor.newSinkFunction(s));
-        });
+        jobDetail.getSinks().forEach((s) -> output.rebalance().addSink(SourceSinkConstructor.newSinkFunction(s)));
 
         // 执行任务
         try {
             env.execute(JOB_NAME);
         } catch (Exception ex) {
-            LOG.error(ex.getMessage());
+            LOG.error(ex.getMessage(), ex);
         }
     }
 

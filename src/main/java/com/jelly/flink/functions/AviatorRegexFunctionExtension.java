@@ -1,14 +1,15 @@
 package com.jelly.flink.functions;
 
 import com.googlecode.aviator.AviatorEvaluator;
-import org.wso2.siddhi.core.config.SiddhiAppContext;
-import org.wso2.siddhi.core.executor.ExpressionExecutor;
-import org.wso2.siddhi.core.executor.function.FunctionExecutor;
-import org.wso2.siddhi.core.util.config.ConfigReader;
-import org.wso2.siddhi.query.api.definition.Attribute;
+import io.siddhi.core.config.SiddhiQueryContext;
+import io.siddhi.core.executor.ExpressionExecutor;
+import io.siddhi.core.executor.function.FunctionExecutor;
+import io.siddhi.core.util.config.ConfigReader;
+import io.siddhi.core.util.snapshot.state.State;
+import io.siddhi.core.util.snapshot.state.StateFactory;
+import io.siddhi.query.api.definition.Attribute;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author jelly
@@ -18,9 +19,9 @@ import java.util.Map;
 public class AviatorRegexFunctionExtension extends FunctionExecutor {
 
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader, SiddhiAppContext siddhiAppContext) {
+    protected StateFactory init(ExpressionExecutor[] expressionExecutors, ConfigReader configReader, SiddhiQueryContext siddhiQueryContext) {
+        return null;
     }
-
 
     /**
      * 规定 data[1] 为 正则内容
@@ -41,17 +42,17 @@ public class AviatorRegexFunctionExtension extends FunctionExecutor {
     }
 
     @Override
+    protected Object execute(Object[] objects, State state) {
+        return null;
+    }
+
+    @Override
+    protected Object execute(Object o, State state) {
+        return null;
+    }
+
+    @Override
     public Attribute.Type getReturnType() {
         return Attribute.Type.OBJECT;
-    }
-
-    @Override
-    public Map<String, Object> currentState() {
-        return new HashMap<>();
-    }
-
-    @Override
-    public void restoreState(Map<String, Object> map) {
-
     }
 }
