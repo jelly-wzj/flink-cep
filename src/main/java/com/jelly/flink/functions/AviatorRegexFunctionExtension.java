@@ -27,28 +27,18 @@ public class AviatorRegexFunctionExtension extends FunctionExecutor {
      * 规定 data[1] 为 正则内容
      */
     @Override
-    protected Object execute(Object[] data) {
-        if (null != data && data.length == 2) {
-            return AviatorEvaluator.execute("REG=~/" + data[1] + "/ ? $1 : '' ", new HashMap<String, Object>() {{
-                put("REG", data[0]);
+    protected Object execute(Object[] objects, State state) {
+        if (null != objects && objects.length == 2) {
+            return AviatorEvaluator.execute("REG=~/" + objects[1] + "/ ? $1 : '' ", new HashMap<>() {{
+                put("REG", objects[0]);
             }});
         }
         return null;
     }
 
     @Override
-    protected Object execute(Object data) {
-        return AviatorEvaluator.execute(data.toString());
-    }
-
-    @Override
-    protected Object execute(Object[] objects, State state) {
-        return null;
-    }
-
-    @Override
     protected Object execute(Object o, State state) {
-        return null;
+        return AviatorEvaluator.execute(o.toString());
     }
 
     @Override
