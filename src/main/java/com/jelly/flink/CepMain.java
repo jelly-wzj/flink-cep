@@ -1,13 +1,13 @@
 package com.jelly.flink;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.parser.Feature;
 import com.jelly.flink.entity.DataStreamDetail;
 import com.jelly.flink.entity.JobDetail;
 import com.jelly.flink.functions.AviatorRegexFunctionExtension;
 import com.jelly.flink.util.AbstractStreamEnv;
 import com.jelly.flink.util.SourceSinkConstructor;
 import org.apache.commons.cli.*;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.common.typeinfo.Types;
@@ -19,9 +19,7 @@ import org.apache.flink.streaming.siddhi.SiddhiStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * CepMain
@@ -76,21 +74,9 @@ public class CepMain extends AbstractStreamEnv {
 
         List<DataStreamDetail> dataStreamDetails = createDataStream(jobDetail, env);
 
-        // 设置siddhi
-        SiddhiCEP siddhiCEP = SiddhiCEP.getSiddhiEnvironment(env);
-        // 注册AVIATOR 函数库
-        siddhiCEP.registerExtension("aviator", AviatorRegexFunctionExtension.class);
+        DataStream<Map<String, Object>> output = buildSiddhiStream(dataStreamDetails, env).cql(jobDetail.getCql()).returnAsMap(jobDetail.getOutputStreamId());
 
-        final DataStreamDetail dataStreamDetail = dataStreamDetails.remove(0);
-
-        final SiddhiStream.SingleSiddhiStream<Map<String, Object>> singleSiddhiStream = siddhiCEP.from(dataStreamDetail.getInputStreamId(), dataStreamDetail.getDataStream(), getTypeInformation(dataStreamDetail.getTypeList()), dataStreamDetail.getFieldList());
-        if (dataStreamDetails.size() > 0) {
-            dataStreamDetails.forEach((dd) -> singleSiddhiStream.union(dd.getInputStreamId(), dd.getDataStream(), getTypeInformation(dd.getTypeList()), dd.getFieldList()));
-        }
-
-        DataStream<Map<String, Object>> output = singleSiddhiStream.cql(jobDetail.getCql()).returnAsMap(jobDetail.getOutputStreamId());
-
-        jobDetail.getSinks().forEach((s) -> output.rebalance().addSink(SourceSinkConstructor.newSinkFunction(s)));
+        jobDetail.getSinks().forEach((sink) -> output.rebalance().addSink(SourceSinkConstructor.newSinkFunction(sink)));
 
         // 执行任务
         try {
@@ -106,9 +92,38 @@ public class CepMain extends AbstractStreamEnv {
         super.inited();
     }
 
+    /**
+     * 将flink流转成siddhi流
+     *
+     * @param dataStreamDetailList
+     * @return
+     */
+    public static SiddhiStream.ExecutableStream buildSiddhiStream(List<DataStreamDetail> dataStreamDetailList, StreamExecutionEnvironment env) {
+        // 设置siddhi
+        SiddhiCEP siddhiCEP = SiddhiCEP.getSiddhiEnvironment(env);
+        // 注册AVIATOR 函数库
+        siddhiCEP.registerExtension("aviator", AviatorRegexFunctionExtension.class);
+        DataStreamDetail dataStreamDetail = dataStreamDetailList.remove(0);
+        // 单流
+        SiddhiStream.SingleSiddhiStream<LinkedHashMap<String, Object>> singleSiddhiStream = siddhiCEP.from(dataStreamDetail.getInputStreamId(), dataStreamDetail.getDataStream(), getTypeInformation(dataStreamDetail.getTypeList()), dataStreamDetail.getFieldList());
+        if (dataStreamDetailList.isEmpty()) {
+            return singleSiddhiStream;
+        }
+
+        // 多流
+        SiddhiStream.UnionSiddhiStream<LinkedHashMap<String, Object>> unionSiddhiStream = null;
+        for (DataStreamDetail dd : dataStreamDetailList) {
+            if (null == unionSiddhiStream) {
+                unionSiddhiStream = singleSiddhiStream.union(dd.getInputStreamId(), dd.getDataStream(), getTypeInformation(dd.getTypeList()), dd.getFieldList());
+            } else {
+                unionSiddhiStream = unionSiddhiStream.union(dd.getInputStreamId(), dd.getDataStream(), dd.getFieldList());
+            }
+        }
+        return unionSiddhiStream;
+    }
 
     /**
-     * 创建数据源
+     * 构建数据源
      *
      * @param jobDetail
      * @param env
@@ -119,15 +134,13 @@ public class CepMain extends AbstractStreamEnv {
         jobDetail.getSources().forEach((source) -> {
             DataStreamDetail dataStreamDetail = new DataStreamDetail();
             dataStreamDetail.setInputStreamId(source.getId());
-            if (StringUtils.isEmpty(DataStreamDetail.outputStreamId)) {
-                DataStreamDetail.outputStreamId = jobDetail.getOutputStreamId();
-            }
+            dataStreamDetail.setOutputStreamId(jobDetail.getOutputStreamId());
 
             DataStream<String> dataStream = env.addSource(SourceSinkConstructor.newSourceFunction(source));
-            DataStream<Map<String, Object>> convertDataStream = dataStream.rebalance().map(new MapFunction<String, Map<String, Object>>() {
+            DataStream<LinkedHashMap<String, Object>> convertDataStream = dataStream.rebalance().map(new MapFunction<String, LinkedHashMap<String, Object>>() {
                 @Override
-                public Map<String, Object> map(String value) throws Exception {
-                    return JSON.parseObject(value, Map.class);
+                public LinkedHashMap<String, Object> map(String value) throws Exception {
+                    return JSON.parseObject(value, LinkedHashMap.class, Feature.OrderedField);
                 }
             });
             dataStreamDetail.setDataStream(convertDataStream);
@@ -151,6 +164,8 @@ public class CepMain extends AbstractStreamEnv {
     }
 
     /**
+     * 获取数据类型
+     *
      * @param javaType
      * @return
      */

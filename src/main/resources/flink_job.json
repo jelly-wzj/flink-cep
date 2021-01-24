@@ -9,7 +9,7 @@
       "id": "inputStream",
       "inputFields": "id String,name String,price Double,timestamp Long",
       "type": "kafka",
-      "host": "192.168.204.181:9092,192.168.204.182:9092,192.168.204.183:9092",
+      "host": "172.16.58.181:9092,172.16.58.182:9092,172.16.58.183:9092",
       "auth": "",
       "resource": "siddhi02"
     }
@@ -18,11 +18,9 @@
     {
       "id": "1",
       "type": "hbase",
-      "host": "192.168.204.181:2181,192.168.204.182:2181,192.168.204.183:2181",
+      "host": "172.16.58.181:2181,172.16.58.182:2181,172.16.58.183:2181",
       "auth": "",
       "store": "flink"
     }
   ]
 }
-
-//{\"jobId\": \"test_1\",\"runType\": \"new\",\"timeType\": \"ProcessingTime\",\"cql\": \"from inputStream select timestamp, id, aviator(name,'([\\w0-8]+)@\\w+[\\.\\w+]+') as name, aviator(price+price) as price insert into  outputStream\",\"outputStreamId\": \"outputStream\",\"sources\": [ {\"id\": \"inputStream\",\"inputFields\": \"id String,name String,price Double,timestamp Long\", \"type\": \"kafka\",\"host\": \"192.168.204.181:9092,192.168.204.182:9092,192.168.204.183:9092\",\"auth\": \"\", \"resource\": \"siddhi02\"}],\"sinks\": [{\"id\": \"1\",\"type\": \"hbase\",\"host\": \"192.168.204.181:2181,192.168.204.182:2181,192.168.204.183:2181\",\"auth\": \"\",\"store\": \"flink\"}]}
