@@ -6,7 +6,9 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import java.util.LinkedHashMap;
 
 /**
- * @author jenkin
+ * @author : jelly.wang
+ * @date : Created in 2021-01-26 下午10:15
+ * @description:
  */
 @Data
 public class DataStreamDetail {

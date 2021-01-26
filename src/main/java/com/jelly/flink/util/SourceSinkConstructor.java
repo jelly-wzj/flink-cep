@@ -14,7 +14,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author jelly
+ * @author : jelly.wang
+ * @date : Created in 2021-01-26 下午10:15
+ * @description: source 和 sink 构建工具类
  */
 public final class SourceSinkConstructor {
     // source

@@ -10,10 +10,13 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * @author jelly
+ * <p>
+ * TODO 简单的mysql操作工具
+ */
 public class MysqlUtils {
     public DruidDataSource dataSource;
-
 
     public MysqlUtils(String jdbcUrl, String jdbcUserName, String jdbcPassword) {
         dataSource = new DruidDataSource();

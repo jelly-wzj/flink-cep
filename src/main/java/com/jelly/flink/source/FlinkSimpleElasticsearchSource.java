@@ -23,7 +23,9 @@ import java.net.UnknownHostException;
 import static com.jelly.flink.common.FlinkRealtimeConstants.*;
 
 /**
- * @author jenkin
+ * @author : jelly.wang
+ * @date : Created in 2021-01-26 下午10:15
+ * @description: elasticsearch source
  */
 public class FlinkSimpleElasticsearchSource extends RichSourceFunction<String> {
     private static final long serialVersionUID = 1L;

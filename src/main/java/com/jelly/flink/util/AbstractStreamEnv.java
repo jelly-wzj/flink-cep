@@ -10,6 +10,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
  *
  * @author jelly.wang
  * @create 2019/03/26
+ * @description flinkstream 环境变量
  */
 public abstract class AbstractStreamEnv {
     private StreamExecutionEnvironment env;
