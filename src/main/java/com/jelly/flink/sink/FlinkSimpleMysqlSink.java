@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author jelly
+ * @author : jelly.wang
+ * @date : Created in 2021-01-26 下午10:15
+ * @description: mysql sink
  */
 public class FlinkSimpleMysqlSink extends RichSinkFunction<Map<String, Object>> {
     private static final long serialVersionUID = 1L;

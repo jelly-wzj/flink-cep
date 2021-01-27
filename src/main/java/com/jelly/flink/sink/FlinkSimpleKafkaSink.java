@@ -1,14 +1,15 @@
 package com.jelly.flink.sink;
 
 import com.jelly.flink.util.schema.SimpleMapSchema;
-import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer;
 
 import java.io.Serializable;
 import java.util.Properties;
 
 /**
- * @author jelly
+ * @author : jelly.wang
+ * @date : Created in 2021-01-26 下午10:15
+ * @description: kafka sink
  */
 public class FlinkSimpleKafkaSink implements Serializable {
     private static final long serialVersionUID = 1L;

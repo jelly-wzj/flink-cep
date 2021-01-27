@@ -7,11 +7,9 @@ import java.io.Serializable;
 import java.util.Properties;
 
 /**
- * kafka-source
- * <p>
- *
- * @author jelly.wang
- * @create 2019/03/26
+ * @author : jelly.wang
+ * @date : Created in 2021-01-26 下午10:15
+ * @description: kafka source
  */
 public class FlinkSimpleKafkaSource implements Serializable {
     private static final long serialVersionUID = 1L;
