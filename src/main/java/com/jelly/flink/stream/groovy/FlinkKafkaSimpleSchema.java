@@ -13,8 +13,8 @@ import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer;
 
 import java.io.File;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 
 public class FlinkKafkaSimpleSchema {
     public static void main(String[] args) {
@@ -39,7 +39,7 @@ public class FlinkKafkaSimpleSchema {
 
             /** 初始化 Kafka Consumer */
             FlinkKafkaConsumer<Event> flinkKafkaConsumer =
-                    new FlinkKafkaConsumer<Event>(
+                    new FlinkKafkaConsumer<>(
                             "flink_kafka_poc_input",
                             new InputEventSchema(),
                             consumerConfig
@@ -54,12 +54,9 @@ public class FlinkKafkaSimpleSchema {
              * 匹配规则
              */
             PatternStream<Event> patternStream = CEP.pattern(stream, pattern);
-            DataStream<Event> outstream = patternStream.select(new PatternSelectFunction<Event, Event>() {
-                @Override
-                public Event select(Map<String, List<Event>> map) throws Exception {
-                    List<Event> next = map.get("next");
-                    return new Event(next.get(0).getKey(), next.get(0).getValue(), next.get(0).getTopic(), next.get(0).getPartition(), next.get(0).getOffset());
-                }
+            DataStream<Event> outstream = patternStream.select((PatternSelectFunction<Event, Event>) map -> {
+                List<Event> next = map.get("next");
+                return new Event(null == next.get(0).getKey() ? UUID.randomUUID().toString() : next.get(0).getKey(), next.get(0).getValue(), next.get(0).getTopic(), next.get(0).getPartition(), next.get(0).getOffset());
             });
             outstream.print("next");
 
