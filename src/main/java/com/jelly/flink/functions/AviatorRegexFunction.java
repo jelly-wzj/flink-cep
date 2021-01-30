@@ -16,7 +16,7 @@ import java.util.HashMap;
  * <p>
  * 根据正则提取字段内容
  */
-public class AviatorRegexFunctionExtension extends FunctionExecutor {
+public class AviatorRegexFunction extends FunctionExecutor {
 
     @Override
     protected StateFactory init(ExpressionExecutor[] expressionExecutors, ConfigReader configReader, SiddhiQueryContext siddhiQueryContext) {

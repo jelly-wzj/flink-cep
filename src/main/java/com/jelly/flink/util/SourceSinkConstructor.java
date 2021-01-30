@@ -58,20 +58,20 @@ public final class SourceSinkConstructor {
      * @return
      */
     private static SourceFunction createHbaseSource() {
-        return new FlinkSimpleHBaseSource(sourceDetail.getHost(), sourceDetail.getResource());
+        return new FlinkSimpleHBaseSource(sourceDetail.getHost(), sourceDetail.getStorage());
     }
 
     private static SourceFunction createKafkaSource() {
-        return new FlinkSimpleKafkaSource(sourceDetail.getHost(), sourceDetail.getId(), sourceDetail.getResource()).build();
+        return new FlinkSimpleKafkaSource(sourceDetail.getHost(), sourceDetail.getId(), sourceDetail.getStorage()).build();
     }
 
     private static SourceFunction createMysqlSource() {
         String[] userAndPass = sourceDetail.getAuth().split(":");
-        return new FlinkSimpleMysqlSource(sourceDetail.getHost(), userAndPass[0], userAndPass[1], sourceDetail.getResource());
+        return new FlinkSimpleMysqlSource(sourceDetail.getHost(), userAndPass[0], userAndPass[1], sourceDetail.getStorage());
     }
 
     private static SourceFunction createElasticsearchSource() {
-        return new FlinkSimpleElasticsearchSource(sourceDetail.getId(), sourceDetail.getAuth(), sourceDetail.getHost(), sourceDetail.getResource());
+        return new FlinkSimpleElasticsearchSource(sourceDetail.getId(), sourceDetail.getAuth(), sourceDetail.getHost(), sourceDetail.getStorage());
     }
 
     /**
@@ -80,20 +80,20 @@ public final class SourceSinkConstructor {
      * @return
      */
     private static SinkFunction createElasticsearchSink() {
-        return new FlinkSimpleElasticsearchSink(sinkDetail.getId(), sinkDetail.getAuth(), sinkDetail.getHost(), sinkDetail.getStore()).build();
+        return new FlinkSimpleElasticsearchSink(sinkDetail.getId(), sinkDetail.getAuth(), sinkDetail.getHost(), sinkDetail.getStorage()).build();
     }
 
     private static SinkFunction createHbaseSink() {
-        return new FlinkSimpleHbaseSink(sinkDetail.getHost(), sinkDetail.getStore()).build();
+        return new FlinkSimpleHbaseSink(sinkDetail.getHost(), sinkDetail.getStorage()).build();
     }
 
     private static SinkFunction createKafkaSink() {
-        return new FlinkSimpleKafkaSink(sinkDetail.getHost(), sinkDetail.getStore()).build();
+        return new FlinkSimpleKafkaSink(sinkDetail.getHost(), sinkDetail.getStorage()).build();
     }
 
     private static SinkFunction createMysqlSink() {
         String[] userAndPass = sinkDetail.getAuth().split(":");
-        return new FlinkSimpleMysqlSink(sinkDetail.getHost(), userAndPass[0], userAndPass[1], sinkDetail.getStore());
+        return new FlinkSimpleMysqlSink(sinkDetail.getHost(), userAndPass[0], userAndPass[1], sinkDetail.getStorage());
     }
 
     private static SinkFunction createRedisSink() {

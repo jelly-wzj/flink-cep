@@ -1,17 +1,16 @@
 {
-  "jobId": "test_1",
-  "runType": "new",
-  "timeType": "ProcessingTime",
-  "cql": "from inputStream select timestamp, id, aviator(name,'([\\w0-8]+)@\\w+[\\.\\w+]+') as name, aviator(price+price) as price insert into  outputStream",
-  "outputStreamId": "outputStream",
+  "id": "test_1",
+  "timeType": "processing",
+  "streamEngine": "com.jelly.flink.stream.SiddhiStreamConverter",
+  "cql": "from ${0} select timestamp, id, aviator(name,'([\\w0-8]+)@\\w+[\\.\\w+]+') as name, aviator(price+price) as price insert into  outputStream",
   "sources": [
     {
       "id": "inputStream",
-      "inputFields": "id String,name String,price Double,timestamp Long",
+      "fields": "id String,name String,price Double,timestamp Long",
       "type": "kafka",
       "host": "172.16.58.181:9092,172.16.58.182:9092,172.16.58.183:9092",
       "auth": "",
-      "resource": "siddhi02"
+      "storage": "siddhi02"
     }
   ],
   "sinks": [
@@ -20,9 +19,9 @@
       "type": "hbase",
       "host": "172.16.58.181:2181,172.16.58.182:2181,172.16.58.183:2181",
       "auth": "",
-      "store": "flink"
+      "storage": "flink"
     }
   ]
 }
 
-{"id":"flink_test01","name":"siddhi33","price":1823.0,"timestamp":1611387930000}
+//{"id":"flink_test01","name":"siddhi33","price":1823.0,"timestamp":1611387930000}
