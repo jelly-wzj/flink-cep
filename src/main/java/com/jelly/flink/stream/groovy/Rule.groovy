@@ -4,7 +4,7 @@ import org.apache.flink.cep.pattern.Pattern
 import org.apache.flink.cep.pattern.conditions.SimpleCondition
 import org.apache.flink.streaming.api.windowing.time.Time
 
-class Rule implements Serializable {
+class Rule{
 /*    def runPattern() {
         Pattern<Event, ?> pattern = Pattern.<String> begin("begin")
                 .where(new SimpleCondition<Event>() {
