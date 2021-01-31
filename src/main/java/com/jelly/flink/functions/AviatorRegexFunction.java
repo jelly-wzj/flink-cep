@@ -29,7 +29,7 @@ public class AviatorRegexFunction extends FunctionExecutor {
     @Override
     protected Object execute(Object[] objects, State state) {
         if (null != objects && objects.length == 2) {
-            return AviatorEvaluator.execute("REG=~/" + objects[1] + "/ ? $1 : '' ", new HashMap<>() {{
+            return AviatorEvaluator.execute("REG=~/" + objects[1] + "/ ? $1 : '' ", new HashMap<String, Object>() {{
                 put("REG", objects[0]);
             }});
         }

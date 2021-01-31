@@ -8,7 +8,7 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import java.util.LinkedHashMap;
 
 /**
- * ConvertionStream
+ * TransformStream
  * <p>
  *
  * @author jelly.wang

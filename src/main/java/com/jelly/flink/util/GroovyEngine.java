@@ -96,4 +96,8 @@ public final class GroovyEngine {
         return (T) groovyObject.invokeMethod(method, params);
     }
 
+    public static void main(String[] args) throws Exception {
+        Object runTest = GroovyEngine.INSTANCE.runFile("/home/jelly/IdeaProjects/flink-cep/src/main/java/com/jelly/flink/stream/groovy/", "Rule.groovy", "runTest", new Object[]{"1"});
+        System.out.println(runTest);
+    }
 }

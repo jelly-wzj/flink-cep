@@ -41,30 +41,30 @@ public class SiddhiStreamConverter implements StreamFactory {
     /**
      * 将flink stream　转化成 siddhi　stream
      *
-     * @param convertionStreams
+     * @param transformStreams
      * @param env
      * @return
      */
-    private SiddhiStream.ExecutableStream buildSiddhiStream(List<TransformStream> convertionStreams, StreamExecutionEnvironment env) {
+    private SiddhiStream.ExecutableStream buildSiddhiStream(List<TransformStream> transformStreams, StreamExecutionEnvironment env) {
         // 设置siddhi
         SiddhiCEP siddhiCEP = SiddhiCEP.getSiddhiEnvironment(env);
         // 注册函数
         registryFunction(siddhiCEP);
 
-        TransformStream convertionStream = convertionStreams.remove(0);
+        TransformStream transformStream = transformStreams.remove(0);
         // 单流
-        SiddhiStream.SingleSiddhiStream<LinkedHashMap<String, Object>> singleSiddhiStream = siddhiCEP.from(convertionStream.getStreamId(), convertionStream.getDataStream(), TypeInformationUtils.getTypeInformation(convertionStream.getTypes()), convertionStream.getFields());
-        if (convertionStreams.isEmpty()) {
+        SiddhiStream.SingleSiddhiStream<LinkedHashMap<String, Object>> singleSiddhiStream = siddhiCEP.from(transformStream.getStreamId(), transformStream.getDataStream(), TypeInformationUtils.getTypeInformation(transformStream.getTypes()), transformStream.getFields());
+        if (transformStreams.isEmpty()) {
             return singleSiddhiStream;
         }
 
         // 多流
         SiddhiStream.UnionSiddhiStream<LinkedHashMap<String, Object>> unionSiddhiStream = null;
-        for (TransformStream cs : convertionStreams) {
+        for (TransformStream ts : transformStreams) {
             if (null == unionSiddhiStream) {
-                unionSiddhiStream = singleSiddhiStream.union(cs.getStreamId(), cs.getDataStream(), TypeInformationUtils.getTypeInformation(cs.getTypes()), cs.getFields());
+                unionSiddhiStream = singleSiddhiStream.union(ts.getStreamId(), ts.getDataStream(), TypeInformationUtils.getTypeInformation(ts.getTypes()), ts.getFields());
             } else {
-                unionSiddhiStream = unionSiddhiStream.union(cs.getStreamId(), cs.getDataStream(), cs.getFields());
+                unionSiddhiStream = unionSiddhiStream.union(ts.getStreamId(), ts.getDataStream(), ts.getFields());
             }
         }
         return unionSiddhiStream;
@@ -106,7 +106,7 @@ public class SiddhiStreamConverter implements StreamFactory {
      */
     private String cqlFormat(String cql, List<String> streamIds) {
         for (int i = 0; i < streamIds.size(); i++) {
-            cql = StringUtils.replace(cql,"${" + i + "}", streamIds.get(i));
+            cql = StringUtils.replace(cql, "${" + i + "}", streamIds.get(i));
         }
         return cql;
     }

@@ -63,7 +63,7 @@ public interface StreamFactory {
      * @return
      */
     default List<TransformStream> buildSourceStreams(List<JobDetail.SourceDetail> sourceDetailList, StreamExecutionEnvironment env) {
-        return new ArrayList<>(sourceDetailList.size()) {{
+        return new ArrayList<TransformStream>(sourceDetailList.size()) {{
             sourceDetailList.forEach(sourceDetail -> add(buildSourceStream(sourceDetail, env)));
         }};
     }
