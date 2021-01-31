@@ -3,6 +3,7 @@ package com.jelly.flink;
 import com.alibaba.fastjson.JSON;
 import com.jelly.flink.entity.JobDetail;
 import com.jelly.flink.util.AbstractStreamEnv;
+import com.jelly.flink.util.ObjectUtils;
 import com.jelly.flink.util.SourceSinkConstructor;
 import org.apache.commons.cli.*;
 import org.apache.flink.streaming.api.TimeCharacteristic;
@@ -40,11 +41,16 @@ public class CepMain extends AbstractStreamEnv {
             CommandLine commandLine = parser.parse(options, args);
             if (commandLine.hasOption("jd")) {
                 jobDetail = JSON.parseObject(commandLine.getOptionValue("jd"), JobDetail.class);
+                // 空值校验
+                if (ObjectUtils.hasNullValue(jobDetail, "timeType", "streamEngine")) {
+                    LOG.error("IllegalArgumentException: parameter is not assigned.");
+                    return;
+                }
             } else {
                 new HelpFormatter().printHelp(" ", options);
                 return;
             }
-        } catch (ParseException e) {
+        } catch (ParseException | IllegalAccessException e) {
             LOG.error(e.getMessage());
             return;
         }

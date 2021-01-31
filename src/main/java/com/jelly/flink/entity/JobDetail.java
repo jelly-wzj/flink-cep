@@ -12,7 +12,7 @@ import java.util.List;
  *   "id": "test_1",
  *   "timeType": "processing",
  *   "streamEngine": "com.jelly.flink.stream.SiddhiStreamConverter",
- *   "cql": "from ${0} select timestamp, id, aviator(name,'([\\w0-8]+)@\\w+[\\.\\w+]+') as name, aviator(price+price) as price insert into  outputStream",
+ *   "exp": "from ${0} select timestamp, id, aviator(name,'([\\w0-8]+)@\\w+[\\.\\w+]+') as name, aviator(price+price) as price insert into  outputStream",
  *   "sources": [
  *     {
  *       "id": "inputStream",
@@ -40,7 +40,7 @@ public final class JobDetail {
     private String id;
     private String timeType;
     private String streamEngine;
-    private String cql;
+    private String exp;
     private List<SourceDetail> sources;
     private List<SinkDetail> sinks;
 

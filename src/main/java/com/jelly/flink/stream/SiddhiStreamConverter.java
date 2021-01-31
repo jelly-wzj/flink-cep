@@ -33,7 +33,7 @@ public class SiddhiStreamConverter implements StreamFactory {
         // 数据源流转化siddhi流
         SiddhiStream.ExecutableStream executableStream = buildSiddhiStream(transformStreams, env);
         // sql stream id映射
-        String cql = cqlFormat(jobDetail.getCql(), streamIds);
+        String cql = cqlFormat(jobDetail.getExp(), streamIds);
 
         return (DataStream<T>) executableStream.cql(cql).returnAsMap("outputStream");
     }

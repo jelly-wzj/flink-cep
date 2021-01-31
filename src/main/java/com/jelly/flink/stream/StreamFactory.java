@@ -23,7 +23,7 @@ import java.util.List;
  */
 public interface StreamFactory {
 
-    <T> DataStream<T> convert(JobDetail detail, StreamExecutionEnvironment env);
+    <T> DataStream<T> convert(JobDetail jobDetail, StreamExecutionEnvironment env);
 
     /**
      * 构建原始数据源流

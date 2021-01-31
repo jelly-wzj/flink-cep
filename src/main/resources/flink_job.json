@@ -2,7 +2,7 @@
   "id": "test_1",
   "timeType": "processing",
   "streamEngine": "com.jelly.flink.stream.SiddhiStreamConverter",
-  "cql": "from ${0} select timestamp, id, aviator(name,'([\\w0-8]+)@\\w+[\\.\\w+]+') as name, aviator(price+price) as price insert into  outputStream",
+  "exp": "from ${0} select timestamp, id, aviator(name,'([\\w0-8]+)@\\w+[\\.\\w+]+') as name, aviator(price+price) as price insert into  outputStream",
   "sources": [
     {
       "id": "inputStream",
