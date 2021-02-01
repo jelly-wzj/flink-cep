@@ -2,19 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+    <parent>
+        <artifactId>roc</artifactId>
+        <groupId>com.roc</groupId>
+        <version>1.0</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.roc</groupId>
-    <artifactId>roc</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0</version>
-    <modules>
-        <module>roc-core</module>
-        <module>roc-web</module>
-    </modules>
 
-    <name>roc</name>
-
+    <artifactId>roc-web</artifactId>
 
 
 </project>
