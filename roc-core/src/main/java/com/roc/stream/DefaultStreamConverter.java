@@ -2,6 +2,7 @@ package com.roc.stream;
 
 import com.roc.entity.JobDetail;
 import com.roc.util.GroovyEngine;
+import org.apache.commons.io.FileUtils;
 import org.apache.flink.cep.CEP;
 import org.apache.flink.cep.PatternSelectFunction;
 import org.apache.flink.cep.PatternStream;
@@ -11,6 +12,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.log4j.Logger;
 
 import javax.script.ScriptException;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -30,7 +32,7 @@ public class DefaultStreamConverter implements StreamFactory {
     public <T> DataStream<T> convert(JobDetail jobDetail, StreamExecutionEnvironment env) {
         List<TransformStream> transformStreams = buildSourceStreams(jobDetail.getSources(), env);
         try {
-            Pattern<T, ?> pattern = GroovyEngine.INSTANCE.runScript(jobDetail.getExp(), null);
+            Pattern<T, ?> pattern = GroovyEngine.INSTANCE.runClass(FileUtils.readFileToString(new File("/media/jelly/_dde_data/project/git/roc/roc-core/src/main/java/com/roc/stream/groovy/RuleRoc.groovy")), "run", null);
             PatternStream<T> patternStream = CEP.pattern(union(transformStreams), pattern);
             return patternStream.select(new PatternSelectFunction<T, T>() {
                 @Override
@@ -38,7 +40,7 @@ public class DefaultStreamConverter implements StreamFactory {
                     return null;
                 }
             });
-        } catch (ScriptException e) {
+        } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             return null;
         }

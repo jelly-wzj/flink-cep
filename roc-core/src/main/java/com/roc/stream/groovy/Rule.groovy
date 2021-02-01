@@ -5,7 +5,7 @@ import org.apache.flink.cep.pattern.Pattern
 import org.apache.flink.cep.pattern.conditions.SimpleCondition
 import org.apache.flink.streaming.api.windowing.time.Time
 
-class Rule{
+class Rule {
 /*    def runPattern() {
         Pattern<Event, ?> pattern = Pattern.<String> begin("begin")
                 .where(new SimpleCondition<Event>() {
@@ -34,7 +34,7 @@ class Rule{
     }*/
 
 
-    def runTest(p){
+    def runTest(p) {
         return "hello groovy"
     }
 
@@ -59,5 +59,7 @@ class Rule{
 
         return GroupPattern.begin(pattern).next(pattern2).within(Time.seconds(5))
     }
+
+
 
 }
