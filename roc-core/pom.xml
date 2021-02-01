@@ -30,7 +30,7 @@
         <jdbc.version>1.10.2</jdbc.version>
         <dbutils.version>1.7</dbutils.version>
         <druid.version>1.2.4</druid.version>
-        <mysql.version>5.1.47</mysql.version>
+        <mysql.version>8.0.16</mysql.version>
         <groovy.version>3.0.7</groovy.version>
     </properties>
 
