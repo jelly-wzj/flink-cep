@@ -1,4 +1,4 @@
-package com.roc.stream;
+package com.roc.stream.cep;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.Feature;

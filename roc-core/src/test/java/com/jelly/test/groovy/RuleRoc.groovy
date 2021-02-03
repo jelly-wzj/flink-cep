@@ -1,4 +1,4 @@
-package com.roc.stream.groovy
+package com.jelly.test.groovy
 
 import org.apache.flink.cep.pattern.Pattern
 import org.apache.flink.cep.pattern.conditions.SimpleCondition
@@ -11,7 +11,7 @@ class RuleRoc implements Serializable {
             boolean filter(LinkedHashMap<String, Object> dataMap) throws Exception {
                 return dataMap.get("name").toString().contains("失败")
             }
-        }).next("next").where(new SimpleCondition<LinkedHashMap<String, Object>>() {
+        }).next("result").where(new SimpleCondition<LinkedHashMap<String, Object>>() {
             @Override
             boolean filter(LinkedHashMap<String, Object> dataMap) throws Exception {
                 return dataMap.get("name").toString().contains("失败")
