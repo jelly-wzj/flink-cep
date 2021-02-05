@@ -96,4 +96,17 @@ public final class GroovyEngine {
         return (T) groovyObject.invokeMethod(method, params);
     }
 
+
+    public static void main(String[] args) throws ExecutionException {
+        Object test = GroovyEngine.INSTANCE.runClass("package com.jelly.test.groovy\n" +
+                "\n" +
+                "class Test {\n" +
+                "\n" +
+                "    def test(){\n" +
+                "        return \"aaa\"\n" +
+                "    }\n" +
+                "}\n", "test", null);
+
+        System.out.println(test);
+    }
 }

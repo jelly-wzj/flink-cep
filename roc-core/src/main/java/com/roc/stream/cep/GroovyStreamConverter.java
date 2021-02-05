@@ -1,6 +1,8 @@
 package com.roc.stream.cep;
 
 import com.roc.entity.JobDetail;
+import com.roc.stream.StreamFactory;
+import com.roc.stream.TransformStream;
 import com.roc.util.GroovyEngine;
 import org.apache.commons.io.FileUtils;
 import org.apache.flink.cep.CEP;
@@ -23,14 +25,14 @@ import java.util.stream.Collectors;
  * @create 2021/01/30
  * @description flink默认转换器
  */
-public class DefaultStreamConverter implements StreamFactory {
-    private static final Logger LOGGER = Logger.getLogger(DefaultStreamConverter.class);
+public class GroovyStreamConverter implements StreamFactory {
+    private static final Logger LOGGER = Logger.getLogger(GroovyStreamConverter.class);
 
     @Override
     public <T> DataStream<T> convert(JobDetail jobDetail, StreamExecutionEnvironment env) {
         List<TransformStream> transformStreams = buildSourceStreams(jobDetail.getSources(), env);
         try {
-            Pattern<T, ?> pattern = GroovyEngine.INSTANCE.runClass(FileUtils.readFileToString(new File("/media/jelly/_dde_data/project/git/roc/roc-core/src/main/java/com/roc/stream/groovy/RuleRoc.groovy")), "run", null);
+            Pattern<T, ?> pattern = GroovyEngine.INSTANCE.runClass(FileUtils.readFileToString(new File("/media/jelly/_dde_data/project/git/roc/roc-core/src/test/java/com/jelly/test/groovy/RuleRoc.groovy")), "run", null);
             PatternStream<T> patternStream = CEP.pattern(union(transformStreams), pattern);
             return patternStream.select((PatternSelectFunction<T, T>) map -> (T) map.get("result").get(0));
         } catch (Exception e) {

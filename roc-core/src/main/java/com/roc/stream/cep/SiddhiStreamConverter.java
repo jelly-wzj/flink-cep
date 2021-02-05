@@ -3,6 +3,8 @@ package com.roc.stream.cep;
 
 import com.roc.entity.JobDetail;
 import com.roc.functions.AviatorRegexFunction;
+import com.roc.stream.StreamFactory;
+import com.roc.stream.TransformStream;
 import com.roc.util.TypeInformationUtils;
 import io.siddhi.core.executor.function.*;
 import org.apache.commons.lang3.StringUtils;
