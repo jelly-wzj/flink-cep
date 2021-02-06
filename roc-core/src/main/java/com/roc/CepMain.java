@@ -107,6 +107,18 @@ public class CepMain extends AbstractStreamEnv {
                 LOG.error("IllegalArgumentException: parameter is not assigned.");
                 return false;
             }
+
+            // 表达式格式校验
+            String exp = jobDetail.getExp();
+            if (!exp.contains("@")) {
+                LOG.error("IllegalArgumentException: exp`s format is wrong for @");
+                return false;
+            }
+            String[] expContentArray = exp.split("@");
+            if (!ExpType.get(expContentArray[0]).verifity(expContentArray[1])) {
+                LOG.error("IllegalArgumentException: exp`s format is wrong for " + ExpType.get(expContentArray[0]));
+                return false;
+            }
         } catch (IllegalAccessException e) {
             LOG.error(e.getMessage(), e);
         }
@@ -121,5 +133,57 @@ public class CepMain extends AbstractStreamEnv {
     @Override
     public void init() {
         super.inited();
+    }
+
+    private enum ExpType {
+        NONE("none") {
+            @Override
+            public boolean verifity(String content) {
+                // @NOTHING TODO
+                return false;
+            }
+        }, CQL("cql") {
+            // siddhi sql 语法校验
+            @Override
+            public boolean verifity(String content) {
+                return true;
+            }
+        }, GROOVY_SCRIPT("groovy_script") {
+            // groovy script 语法校验
+            @Override
+            public boolean verifity(String content) {
+                return true;
+            }
+        }, CLASS_NAME("class_name") {
+            // java,groovy　语言语法校验
+            @Override
+            public boolean verifity(String content) {
+                return true;
+            }
+        }, FILE("file") {
+            // 文件类型校验
+            @Override
+            public boolean verifity(String content) {
+                if (content.endsWith("java") || content.endsWith("groovy"))
+                    return true;
+                else return false;
+            }
+        };
+        private String name;
+
+        ExpType(String name) {
+            this.name = name;
+        }
+
+        public static ExpType get(String type) {
+            try {
+                return ExpType.valueOf(type);
+            } catch (Exception e) {
+                LOG.error(e.getMessage(), e);
+                return NONE;
+            }
+        }
+
+        public abstract boolean verifity(String content);
     }
 }
