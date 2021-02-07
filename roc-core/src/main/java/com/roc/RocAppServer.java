@@ -6,6 +6,7 @@ import com.roc.util.AbstractStreamEnv;
 import com.roc.util.ObjectUtils;
 import com.roc.util.SourceSinkConstructor;
 import org.apache.commons.cli.*;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -22,9 +23,10 @@ import java.util.*;
  * @author jelly.wang
  * @create 2019/03/26
  */
-public class CepMain extends AbstractStreamEnv {
-    private final static String JOB_NAME = CepMain.class.getSimpleName();
-    private final static Logger LOG = LoggerFactory.getLogger(CepMain.class.getName());
+public class RocAppServer extends AbstractStreamEnv {
+    private final static String JOB_NAME = RocAppServer.class.getSimpleName();
+    private final static Logger LOG = LoggerFactory.getLogger(RocAppServer.class.getName());
+    private final static String separator = "#=>";
 
     {
         init();
@@ -33,7 +35,7 @@ public class CepMain extends AbstractStreamEnv {
     public static void main(String[] args) {
         JobDetail jobDetail = fromArgs(args);
 
-        final CepMain nm = new CepMain();
+        final RocAppServer nm = new RocAppServer();
         // 获取执行环境
         StreamExecutionEnvironment env = nm.getEnv();
         // 设置数据自定义时间
@@ -61,6 +63,11 @@ public class CepMain extends AbstractStreamEnv {
         }
     }
 
+    @Override
+    public void init() {
+        super.inited();
+    }
+
     /**
      * JobDetail from Args
      *
@@ -70,7 +77,7 @@ public class CepMain extends AbstractStreamEnv {
     private static JobDetail fromArgs(String[] args) {
         final CommandLineParser parser = new DefaultParser();
         final Options options = new Options();
-        options.addOption("jd", "jobDetail", true, "Set the rules for running the flink job.");
+        options.addOption("jd", "jobDetail", true, "Set the rules for running the flink job");
 
         JobDetail jobDetail = null;
         try {
@@ -79,16 +86,15 @@ public class CepMain extends AbstractStreamEnv {
                 jobDetail = JSON.parseObject(commandLine.getOptionValue("jd"), JobDetail.class);
             } else {
                 new HelpFormatter().printHelp(" ", options);
-                exit();
+                exit("Parameter types not supported by the command line");
             }
         } catch (ParseException e) {
-            LOG.error(e.getMessage());
-            exit(e.getCause());
+            exit(e.getMessage());
         }
 
         // job构建参数校验
         if (!jobParamsVerify(jobDetail)) {
-            exit(new Throwable("Parameter verification abnormal"));
+            exit("Parameter verification abnormal");
         }
 
         return jobDetail;
@@ -101,23 +107,25 @@ public class CepMain extends AbstractStreamEnv {
      * @return
      */
     private static boolean jobParamsVerify(JobDetail jobDetail) {
-        // 空值校验
         try {
+            // 1.空值校验
             if (ObjectUtils.hasNullValue(jobDetail, "timeType", "streamEngine")) {
-                LOG.error("IllegalArgumentException: parameter is not assigned.");
+                LOG.error("IllegalArgumentException: parameter is not assigned");
                 return false;
             }
 
-            // 表达式格式校验
+            // 2.表达式格式校验
             String exp = jobDetail.getExp();
-            if (!exp.contains("@")) {
-                LOG.error("IllegalArgumentException: exp`s format is wrong for @");
+            if (!exp.contains(separator)) {
+                LOG.error("IllegalArgumentException: exp`s delimiter error [" + separator + "]");
                 return false;
             }
-            String[] expContentArray = exp.split("@");
-            if (!ExpType.get(expContentArray[0]).verifity(expContentArray[1])) {
-                LOG.error("IllegalArgumentException: exp`s format is wrong for " + ExpType.get(expContentArray[0]));
+            String[] expContentArray = exp.split(separator);
+            if (!ExpType.get(expContentArray[0]).verify(expContentArray[1])) {
+                LOG.error("IllegalArgumentException: exp`s grammar error [" + ExpType.get(expContentArray[0]) + "]");
                 return false;
+            } else {
+                jobDetail.setExp(expContentArray[1]);
             }
         } catch (IllegalAccessException e) {
             LOG.error(e.getMessage(), e);
@@ -126,44 +134,41 @@ public class CepMain extends AbstractStreamEnv {
     }
 
     // 退出进程
-    private static void exit(Throwable... cause) {
-        exit(cause);
+    private static void exit(String cause) {
+        if (StringUtils.isNotBlank(cause)) LOG.error("Process finished with exit cause: " + cause);
+        System.exit(0);
     }
 
-    @Override
-    public void init() {
-        super.inited();
-    }
 
     private enum ExpType {
         NONE("none") {
             @Override
-            public boolean verifity(String content) {
+            public boolean verify(String content) {
                 // @NOTHING TODO
                 return false;
             }
         }, CQL("cql") {
             // siddhi sql 语法校验
             @Override
-            public boolean verifity(String content) {
+            public boolean verify(String content) {
                 return true;
             }
         }, GROOVY_SCRIPT("groovy_script") {
             // groovy script 语法校验
             @Override
-            public boolean verifity(String content) {
+            public boolean verify(String content) {
                 return true;
             }
         }, CLASS_NAME("class_name") {
             // java,groovy　语言语法校验
             @Override
-            public boolean verifity(String content) {
+            public boolean verify(String content) {
                 return true;
             }
         }, FILE("file") {
             // 文件类型校验
             @Override
-            public boolean verifity(String content) {
+            public boolean verify(String content) {
                 if (content.endsWith("java") || content.endsWith("groovy"))
                     return true;
                 else return false;
@@ -177,13 +182,13 @@ public class CepMain extends AbstractStreamEnv {
 
         public static ExpType get(String type) {
             try {
-                return ExpType.valueOf(type);
+                return ExpType.valueOf(type.toUpperCase());
             } catch (Exception e) {
                 LOG.error(e.getMessage(), e);
                 return NONE;
             }
         }
 
-        public abstract boolean verifity(String content);
+        public abstract boolean verify(String content);
     }
 }
