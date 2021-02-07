@@ -1,7 +1,7 @@
 package com.roc.sink;
 
+import com.roc.common.base.ObjectUtil;
 import com.roc.util.MysqlUtils;
-import com.roc.util.ObjectUtils;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 import org.slf4j.Logger;
@@ -110,7 +110,7 @@ public class FlinkSimpleMysqlSink extends RichSinkFunction<Map<String, Object>> 
     }
 
     private void checkId(Map<String, Object> value) {
-        if (null == value || value.size() == 0 || !value.containsKey("id") || ObjectUtils.isNull(value)) {
+        if (null == value || value.size() == 0 || !value.containsKey("id") || ObjectUtil.isNull(value)) {
             throw new IllegalArgumentException("'id' field is required and is not null");
         }
     }

@@ -2,6 +2,8 @@ package com.roc.util;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.roc.common.bytecode.MD5Utils;
+import com.roc.common.text.ConfigUtils;
 import groovy.lang.Binding;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyObject;

@@ -1,9 +1,9 @@
 package com.roc;
 
 import com.alibaba.fastjson.JSON;
+import com.roc.common.base.ObjectUtil;
 import com.roc.entity.JobDetail;
 import com.roc.util.AbstractStreamEnv;
-import com.roc.util.ObjectUtils;
 import com.roc.util.SourceSinkConstructor;
 import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
@@ -109,7 +109,7 @@ public class RocAppServer extends AbstractStreamEnv {
     private static boolean jobParamsVerify(JobDetail jobDetail) {
         try {
             // 1.空值校验
-            if (ObjectUtils.hasNullValue(jobDetail, "timeType", "streamEngine")) {
+            if (ObjectUtil.hasNullValue(jobDetail, "timeType", "streamEngine")) {
                 LOG.error("IllegalArgumentException: parameter is not assigned");
                 return false;
             }

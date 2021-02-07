@@ -1,7 +1,7 @@
 package com.roc.sink;
 
 import com.alibaba.fastjson.JSON;
-import com.roc.util.ObjectUtils;
+import com.roc.common.base.ObjectUtil;
 import org.apache.flink.streaming.connectors.redis.RedisSink;
 import org.apache.flink.streaming.connectors.redis.common.config.FlinkJedisPoolConfig;
 import org.apache.flink.streaming.connectors.redis.common.mapper.RedisCommand;
@@ -35,7 +35,7 @@ public class FlinkSimpleRedisSink implements Serializable {
             @Override
             public String getKeyFromData(Map<String, Object> data) {
                 final Object id = data.get("id");
-                if (ObjectUtils.isNull(id)) {
+                if (ObjectUtil.isNull(id)) {
                     throw new IllegalArgumentException("id field is required");
                 }
                 return id.toString();
