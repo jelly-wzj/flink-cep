@@ -11,10 +11,10 @@
     <modules>
         <module>roc-core</module>
         <module>roc-web</module>
+        <module>roc-business</module>
     </modules>
 
     <name>roc</name>
-
 
 
 </project>
