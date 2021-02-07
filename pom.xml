@@ -9,12 +9,29 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
+        <module>roc-common</module>
         <module>roc-core</module>
         <module>roc-web</module>
         <module>roc-business</module>
     </modules>
-
     <name>roc</name>
 
+    <properties>
+        <fastjson.version>1.2.75</fastjson.version>
+        <guava.version>20.0</guava.version>
+        <commons-lang3.version>3.8.1</commons-lang3.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <logback.version>1.1.11</logback.version>
+        <dozer.version>5.5.1</dozer.version>
+        <jackson.version>2.9.10.4</jackson.version>
+        <junit.version>4.12</junit.version>
+        <lombok.version>1.18.16</lombok.version>
+        <commons.version>1.4</commons.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+    </properties>
 
 </project>

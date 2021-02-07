@@ -18,11 +18,8 @@
         <flink.version>1.11.3</flink.version>
         <hadoop.version>2.10.1</hadoop.version>
         <hbase.version>1.4.13</hbase.version>
-        <fastjson.version>1.2.75</fastjson.version>
         <siddhi.version>5.1.2</siddhi.version>
         <flinksiddhi.version>0.2.2-SNAPSHOT</flinksiddhi.version>
-        <commons.version>1.4</commons.version>
-        <lombok.version>1.18.16</lombok.version>
         <joor.version>0.9.13</joor.version>
         <cglib.version>3.3.0</cglib.version>
         <aviator.version>4.2.10</aviator.version>
@@ -208,7 +205,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.roc.RocAppServer</mainClass>
+                                    <mainClass>com.roc.common.RocAppServer</mainClass>
                                 </transformer>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
