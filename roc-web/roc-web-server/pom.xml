@@ -15,7 +15,7 @@
         <mybatis.version>1.3.5</mybatis.version>
         <springboot.version>2.2.7.RELEASE</springboot.version>
         <codec.version>1.15</codec.version>
-        <mysql.version>5.1.49</mysql.version>
+        <mysql.version>8.0.17</mysql.version>
         <commom.io.version>2.8.0</commom.io.version>
         <druid.version>1.2.4</druid.version>
         <aopalliance.version>1.0</aopalliance.version>
@@ -23,9 +23,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${mybatis.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${springboot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -33,8 +33,13 @@
             <version>${springboot.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
             <version>${springboot.version}</version>
         </dependency>
         <dependency>
