@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * Created by sang on 2017/12/24.
- */
 @RestController
 @RequestMapping("/admin")
 public class UserManaController {

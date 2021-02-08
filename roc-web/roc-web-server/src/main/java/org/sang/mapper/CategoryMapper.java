@@ -6,9 +6,6 @@ import org.sang.bean.Category;
 
 import java.util.List;
 
-/**
- * Created by sang on 2017/12/19.
- */
 @Mapper
 public interface CategoryMapper {
     List<Category> getAllCategories();

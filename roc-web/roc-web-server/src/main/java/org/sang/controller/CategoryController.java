@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * 超级管理员专属Controller
- */
 @RestController
 @RequestMapping("/admin/category")
 public class CategoryController {

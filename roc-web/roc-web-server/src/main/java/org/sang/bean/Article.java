@@ -3,9 +3,6 @@ package org.sang.bean;
 import java.sql.Timestamp;
 import java.util.List;
 
-/**
- * Created by sang on 2017/12/20.
- */
 public class Article {
     private Long id;
     private String title;

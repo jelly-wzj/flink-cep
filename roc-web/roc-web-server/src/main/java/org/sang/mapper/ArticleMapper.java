@@ -6,9 +6,6 @@ import org.sang.bean.Article;
 
 import java.util.List;
 
-/**
- * Created by sang on 2017/12/20.
- */
 @Mapper
 public interface ArticleMapper {
     int addNewArticle(Article article);

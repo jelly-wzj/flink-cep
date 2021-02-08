@@ -9,12 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
-/**
- * Created by sang on 2017/12/20.
- */
 @Service
 @Transactional
 public class ArticleService {
@@ -90,10 +86,10 @@ public class ArticleService {
         return content;
     }
 
-    public List<Article> getArticleByState(Integer state, Integer page, Integer count,String keywords) {
+    public List<Article> getArticleByState(Integer state, Integer page, Integer count, String keywords) {
         int start = (page - 1) * count;
         Long uid = Util.getCurrentUser().getId();
-        return articleMapper.getArticleByState(state, start, count, uid,keywords);
+        return articleMapper.getArticleByState(state, start, count, uid, keywords);
     }
 
 //    public List<Article> getArticleByStateByAdmin(Integer page, Integer count,String keywords) {
@@ -101,8 +97,8 @@ public class ArticleService {
 //        return articleMapper.getArticleByStateByAdmin(start, count,keywords);
 //    }
 
-    public int getArticleCountByState(Integer state, Long uid,String keywords) {
-        return articleMapper.getArticleCountByState(state, uid,keywords);
+    public int getArticleCountByState(Integer state, Long uid, String keywords) {
+        return articleMapper.getArticleCountByState(state, uid, keywords);
     }
 
     public int updateArticleState(Long[] aids, Integer state) {
@@ -129,6 +125,7 @@ public class ArticleService {
 
     /**
      * 获取最近七天的日期
+     *
      * @return
      */
     public List<String> getCategories() {
@@ -137,6 +134,7 @@ public class ArticleService {
 
     /**
      * 获取最近七天的数据
+     *
      * @return
      */
     public List<Integer> getDataStatistics() {

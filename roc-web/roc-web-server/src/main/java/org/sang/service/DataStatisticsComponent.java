@@ -4,9 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-/**
- * Created by sang on 2017/12/25.
- */
 @Component
 public class DataStatisticsComponent {
     @Autowired

@@ -1,8 +1,5 @@
 package org.sang.bean;
 
-/**
- * Created by sang on 2017/12/17.
- */
 public class Role {
     private Long id;
     private String name;

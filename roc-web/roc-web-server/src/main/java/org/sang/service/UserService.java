@@ -17,9 +17,6 @@ import org.springframework.util.DigestUtils;
 
 import java.util.List;
 
-/**
- * Created by sang on 2017/12/17.
- */
 @Service
 @Transactional
 public class UserService implements UserDetailsService {
