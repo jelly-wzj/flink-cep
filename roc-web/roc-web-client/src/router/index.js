@@ -26,36 +26,32 @@ export default new Router({
     }, {
       path: '/home',
       component: Home,
-      name: '文章管理',
+      name: 'Overview',
+      children: [
+        {
+          path: '/articleList',
+          name: 'Overview',
+          iconCls: 'fa fa-home fa-fw',
+          component: ArticleList
+        }
+      ]
+     }, {
+      path: '/home',
+      component: Home,
+      name: '任务管理',
       iconCls: 'fa fa-file-text-o',
       children: [
         {
           path: '/articleList',
-          name: '文章列表',
+          name: '任务列表',
           component: ArticleList,
           meta: {
             keepAlive: true
           }
         }, {
           path: '/postArticle',
-          name: '发表文章',
+          name: '任务管理',
           component: PostArticle,
-          meta: {
-            keepAlive: false
-          }
-        }, {
-          path: '/blogDetail',
-          name: '博客详情',
-          component: BlogDetail,
-          hidden: true,
-          meta: {
-            keepAlive: false
-          }
-        }, {
-          path: '/editBlog',
-          name: '编辑博客',
-          component: PostArticle,
-          hidden: true,
           meta: {
             keepAlive: false
           }
@@ -64,37 +60,41 @@ export default new Router({
     }, {
       path: '/home',
       component: Home,
-      name: '用户管理',
-      children: [
-        {
-          path: '/user',
-          iconCls: 'fa fa-user-o',
-          name: '用户管理',
-          component: UserMana
-        }
-      ]
-    }, {
-      path: '/home',
-      component: Home,
-      name: '栏目管理',
+      name: 'Console',
       children: [
         {
           path: '/cateMana',
-          iconCls: 'fa fa-reorder',
-          name: '栏目管理',
+          iconCls: 'fa fa-pencil fa-fw',
+          name: 'Console',
           component: CateMana
         }
       ]
-    }, {
+    },{
       path: '/home',
       component: Home,
-      name: '数据统计',
-      iconCls: 'fa fa-bar-chart',
+      iconCls: 'fa fa-cog fa-fw',
+      name: '系统设置',
+      children: [
+        {
+          path: '/user',
+          name: '用户',
+          component: UserMana
+        },
+        {
+           path: '/user',
+           name: '日志',
+           component: UserMana
+       }
+     ]
+     }, {
+      path: '/home',
+      component: Home,
+      name: '帮助文档',
       children: [
         {
           path: '/charts',
-          iconCls: 'fa fa-bar-chart',
-          name: '数据统计',
+          iconCls: 'fa fa-book fa-fw',
+          name: '帮助文档',
           component: DataCharts
         }
       ]
