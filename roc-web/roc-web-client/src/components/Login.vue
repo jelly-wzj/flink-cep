@@ -76,7 +76,7 @@
   .login_title {
     margin: 0px auto 40px auto;
     text-align: center;
-    color: #505458;
+    color: #4682B4;
   }
 
   .login_remember {

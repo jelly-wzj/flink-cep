@@ -100,7 +100,7 @@ export default {
 }
 
 .el-header {
-  background-color: #20a0ff;
+  background-color: #4682B4;
   color: #333;
   text-align: center;
   display: flex;
@@ -109,7 +109,7 @@ export default {
 }
 
 .el-aside {
-  background-color: #ECECEC;
+  background-color: #DCDCDC;
 }
 
 .el-main {
