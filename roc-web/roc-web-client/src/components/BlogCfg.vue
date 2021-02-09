@@ -18,48 +18,49 @@
   </el-card>
 </template>
 <script>
-  import {getRequest} from '../utils/api'
-  import {putRequest} from '../utils/api'
-  export default{
-    data(){
-      return {
-        emailValidateForm: {
-          email: ''
-        },
-        loading: false
+import {getRequest} from '../utils/api'
+import {putRequest} from '../utils/api'
+
+export default {
+  data() {
+    return {
+      emailValidateForm: {
+        email: ''
+      },
+      loading: false
+    }
+  },
+  mounted: function () {
+    var _this = this;
+    getRequest("/currentUserEmail").then(resp => {
+      if (resp.status == 200) {
+        _this.emailValidateForm.email = resp.data;
       }
-    },
-    mounted: function () {
+    });
+  },
+  methods: {
+    submitForm(formName) {
       var _this = this;
-      getRequest("/currentUserEmail").then(resp=> {
-        if (resp.status == 200) {
-          _this.emailValidateForm.email = resp.data;
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          _this.loading = true;
+          putRequest("/updateUserEmail", {email: _this.emailValidateForm.email}).then(resp => {
+            _this.loading = false;
+            if (resp.status == 200) {
+              _this.$message({type: resp.data.status, message: resp.data.msg});
+            } else {
+              _this.$message({type: 'error', message: '开启失败!'});
+            }
+          }, resp => {
+            _this.loading = false;
+            _this.$message({type: 'error', message: '开启失败!'});
+          });
+        } else {
+          _this.$message({type: 'error', message: '邮箱格式不对哦!'})
+          return false;
         }
       });
-    },
-    methods: {
-      submitForm(formName) {
-        var _this = this;
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            _this.loading = true;
-            putRequest("/updateUserEmail", {email: _this.emailValidateForm.email}).then(resp=> {
-              _this.loading = false;
-              if (resp.status == 200) {
-                _this.$message({type: resp.data.status, message: resp.data.msg});
-              } else {
-                _this.$message({type: 'error', message: '开启失败!'});
-              }
-            }, resp=> {
-              _this.loading = false;
-              _this.$message({type: 'error', message: '开启失败!'});
-            });
-          } else {
-            _this.$message({type: 'error', message: '邮箱格式不对哦!'})
-            return false;
-          }
-        });
-      }
     }
   }
+}
 </script>

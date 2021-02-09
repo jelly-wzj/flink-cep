@@ -1,4 +1,5 @@
 import Vue from 'vue'
+
 Vue.filter("formatDate", function formatDate(value) {
   var date = new Date(value);
   var year = date.getFullYear();

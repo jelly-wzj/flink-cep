@@ -35,7 +35,7 @@ export default new Router({
           component: ArticleList
         }
       ]
-     }, {
+    }, {
       path: '/home',
       component: Home,
       name: '任务管理',
@@ -69,7 +69,7 @@ export default new Router({
           component: CateMana
         }
       ]
-    },{
+    }, {
       path: '/home',
       component: Home,
       iconCls: 'fa fa-cog fa-fw',
@@ -81,12 +81,12 @@ export default new Router({
           component: UserMana
         },
         {
-           path: '/user',
-           name: '日志',
-           component: UserMana
-       }
-     ]
-     }, {
+          path: '/user',
+          name: '日志',
+          component: UserMana
+        }
+      ]
+    }, {
       path: '/home',
       component: Home,
       name: '帮助文档',
