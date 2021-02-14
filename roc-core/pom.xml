@@ -165,6 +165,13 @@
             <version>${groovy.version}</version>
             <type>pom</type>
         </dependency>
+        <!--<dependency>
+            <groupId>jdk.tools</groupId>
+            <artifactId>jdk.tools</artifactId>
+            <version>1.7</version>
+            <scope>system</scope>
+            <systemPath>‪C:\Program Files\Java\jdk1.8.0_281\lib\tools.jar</systemPath>
+        </dependency>-->
     </dependencies>
     <build>
         <plugins>

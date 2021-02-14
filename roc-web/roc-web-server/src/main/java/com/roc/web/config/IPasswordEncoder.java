@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 
 @Component
-public class MyPasswordEncoder implements PasswordEncoder {
+public class IPasswordEncoder implements PasswordEncoder {
     @Override
     public String encode(CharSequence rawPassword) {
         return DigestUtils.md5DigestAsHex(rawPassword.toString().getBytes());

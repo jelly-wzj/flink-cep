@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface RolesMapper {
-    int addRoles(@Param("roles") String[] roles, @Param("uid") Long uid);
+    int addRoles(@Param("roles") Long[] roles, @Param("uid") Long uid);
 
     List<Role> getRolesByUid(Long uid);
 }
