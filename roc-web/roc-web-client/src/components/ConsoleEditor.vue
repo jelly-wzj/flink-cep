@@ -1,42 +1,3 @@
-<!--<template>
-    <div class="code-mirror-div">
-        <div class="tool-bar">
-            <span>请选择主题</span>
-            <el-select v-model="cmTheme" placeholder="请选择" size="small" style="width:150px">
-                <el-option v-for="item in cmThemeOptions" :key="item" :label="item" :value="item"></el-option>
-            </el-select>
-            <span style="margin-left: 10px">请选择编辑模式</span>
-            <el-select
-                    v-model="cmEditorMode"
-                    placeholder="请选择"
-                    size="small"
-                    style="width:150px"
-                    @change="onEditorModeChange"
-            >
-
-                <el-option
-                        v-for="item in cmEditorModeOptions"
-                        :key="item"
-                        :label="item"
-                        :value="item"
-                ></el-option>
-            </el-select>
-
-            <el-button type="primary" size="small" style="margin-left:10px" @click="setStyle">修改样式</el-button>
-            <el-button type="primary" size="small" style="margin-left:10px" @click="getValue">获取内容</el-button>
-            <el-button type="primary" size="small" style="margin-left:10px" @click="setValue">修改内容</el-button>
-        </div>
-
-        <code-mirror-editor
-                ref="cmEditor"
-                :cmTheme="cmTheme"
-                :cmMode="cmMode"
-                :autoFormatJson="autoFormatJson"
-                :jsonIndentation="jsonIndentation"
-        ></code-mirror-editor>
-    </div>
-</template>-->
-
 <template>
     <el-container>
         <el-header class="console_header">
@@ -66,7 +27,7 @@
             ></code-mirror-editor>
         </el-main>
         <el-footer>
-            <el-button type="primary" size="medium" style="margin-top: 10px">重置</el-button>
+            <el-button type="primary" size="medium" style="margin-top: 10px" @click="setValue">重置</el-button>
             <el-button type="primary" size="medium" style="margin-left: 10px" @click="getValue">提交作业</el-button>
         </el-footer>
     </el-container>
@@ -125,6 +86,10 @@
                 let content = this.$refs.cmEditor.getValue();
                 console.log(content);
             },
+            //重置
+            setValue() {
+                this.$refs.cmEditor.setEmpty();
+            }
         }
     };
 </script>

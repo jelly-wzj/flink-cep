@@ -216,6 +216,10 @@
                     this.$message.error("修改编辑框内容失败：" + e.toString());
                 }
             },
+            // 修改值
+            setEmpty() {
+                this.editorValue = "";
+            },
 
             // 黏贴事件处理函数
             OnPaste(event) {
