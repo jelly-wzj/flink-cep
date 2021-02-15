@@ -42,10 +42,10 @@
         data() {
             return {
                 cmTheme: "eclipse",
-                cmEditorMode: "sql",
+                cmEditorMode: "",
                 cmEditorModeOptions: [
                     "json",
-                    "sql",
+                    "cql",
                     "java",
                     "groovy",
                     "file"
@@ -65,7 +65,7 @@
                     case "json":
                         this.cmMode = "application/json";
                         break;
-                    case "sql":
+                    case "cql":
                         this.cmMode = "sql";
                         break;
                     case "java":
