@@ -22,6 +22,8 @@
     import "codemirror/mode/sql/sql.js";
     import "codemirror/mode/python/python.js";
     import "codemirror/mode/markdown/markdown.js";
+    import "codemirror/mode/groovy/groovy.js";
+    import "codemirror/mode/shell/shell.js";
     import "codemirror/addon/hint/show-hint.css";
     import "codemirror/addon/hint/show-hint.js";
     import "codemirror/addon/hint/javascript-hint.js";
@@ -35,8 +37,6 @@
     import "codemirror/addon/lint/json-lint";
 
     require("script-loader!jsonlint");
-    // import "codemirror/addon/lint/html-lint.js";
-    // import "codemirror/addon/lint/css-lint.js";
     import "codemirror/addon/lint/javascript-lint.js";
     import "codemirror/addon/fold/foldcode.js";
     import "codemirror/addon/fold/foldgutter.js";
@@ -69,14 +69,8 @@
             return {
                 editorValue: "",
                 cmOptions: {
-                    theme:
-                        !this.cmTheme || this.cmTheme == "default"
-                            ? "blackboard"
-                            : this.cmTheme,
-                    mode:
-                        !this.cmMode || this.cmMode == "default"
-                            ? "application/json"
-                            : this.cmMode,
+                    theme: !this.cmTheme || this.cmTheme == "default" ? "blackboard" : this.cmTheme,
+                    mode: !this.cmMode || this.cmMode == "default" ? "application/json" : this.cmMode,
                     lineWrapping: true,
                     lineNumbers: true,
                     autofocus: true,
@@ -303,7 +297,7 @@
 
 <style>
     .CodeMirror-selected {
-        background-color: blue !important;
+        background-color: #5a75ac !important;
     }
 
     .CodeMirror-selectedtext {
@@ -311,6 +305,6 @@
     }
 
     .cm-matchhighlight {
-        background-color: #ae00ae;
+        background-color: #c3d6e8;
     }
 </style>

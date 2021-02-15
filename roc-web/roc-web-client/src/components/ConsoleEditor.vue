@@ -65,6 +65,10 @@
                     :jsonIndentation="jsonIndentation"
             ></code-mirror-editor>
         </el-main>
+        <el-footer>
+            <el-button type="primary" size="medium" style="margin-top: 10px">重置</el-button>
+            <el-button type="primary" size="medium" style="margin-left: 10px" @click="getValue">提交作业</el-button>
+        </el-footer>
     </el-container>
 </template>
 <script>
@@ -82,7 +86,7 @@
                     "json",
                     "sql",
                     "java",
-                    "script",
+                    "groovy",
                     "file"
                 ],
                 // codeMirror模式
@@ -107,7 +111,7 @@
                         this.cmMode = "java";
                         break;
                     case "script":
-                        this.cmMode = "script";
+                        this.cmMode = "groovy";
                         break;
                     case "file":
                         this.cmMode = "file";
@@ -129,6 +133,7 @@
     .CodeMirror {
         position: static;
         height: 420px;
+        text-align: left;
     }
 
     .console_header {
