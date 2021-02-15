@@ -7,12 +7,16 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'font-awesome/css/font-awesome.min.css'
 import './utils/filter_utils.js'
 
+import {codemirror} from "vue-codemirror";
+import "codemirror/lib/codemirror.css";
+Vue.use(codemirror);
+
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 window.bus = new Vue();
 new Vue({
-  el: '#app',
-  router,
-  template: '<App/>',
-  components: {App}
+    el: '#app',
+    router,
+    template: '<App/>',
+    components: {App}
 })

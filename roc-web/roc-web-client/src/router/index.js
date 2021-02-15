@@ -9,6 +9,8 @@ import PostArticle from '@/components/PostArticle'
 import UserMana from '@/components/UserMana'
 import BlogDetail from '@/components/BlogDetail'
 
+import ConsoleEditor from '@/components/ConsoleEditor'
+
 Vue.use(Router)
 
 export default new Router({
@@ -32,7 +34,7 @@ export default new Router({
           path: '/articleList',
           name: 'Overview',
           iconCls: 'fa fa-home fa-fw',
-          component: ArticleList
+          component: CateMana
         }
       ]
     }, {
@@ -66,7 +68,7 @@ export default new Router({
           path: '/cateMana',
           iconCls: 'fa fa-pencil fa-fw',
           name: 'Console',
-          component: CateMana
+          component: ConsoleEditor
         }
       ]
     }, {
