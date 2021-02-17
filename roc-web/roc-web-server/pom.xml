@@ -24,6 +24,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.roc</groupId>
+            <artifactId>roc-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>${springboot.version}</version>
@@ -86,6 +91,13 @@
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
+            <resource>
+                <directory>${project.basedir}/../../roc-core/target</directory>
+                <targetPath>engine</targetPath>
+                <includes>
+                    <include>roc-core-*.jar</include>
+                </includes>
+            </resource>
         </resources>
         <plugins>
             <plugin>
@@ -95,6 +107,42 @@
                 <configuration>
                     <executable>true</executable>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <includeEmptyDirs>true</includeEmptyDirs>
+                    <encoding>UTF-8</encoding>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>exe</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>zip</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>vbs</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>sh</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <includeEmptyDirs>true</includeEmptyDirs>
+                            <outputDirectory>${project.build.directory}/${project.package.name}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/../../roc-core/target</directory>
+                                    <targetPath>engine</targetPath>
+                                    <includes>
+                                        <include>roc-core-*.jar</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
