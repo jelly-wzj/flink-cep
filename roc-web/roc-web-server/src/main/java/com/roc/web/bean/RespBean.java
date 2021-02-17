@@ -8,7 +8,6 @@ public class RespBean {
     }
 
     public RespBean(String status, String msg) {
-
         this.status = status;
         this.msg = msg;
     }

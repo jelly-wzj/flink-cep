@@ -19,6 +19,7 @@
         <commom.io.version>2.8.0</commom.io.version>
         <druid.version>1.2.4</druid.version>
         <aopalliance.version>1.0</aopalliance.version>
+        <lombok.version>1.18.16</lombok.version>
     </properties>
 
     <dependencies>
@@ -66,6 +67,11 @@
             <groupId>aopalliance</groupId>
             <artifactId>aopalliance</artifactId>
             <version>${aopalliance.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
     </dependencies>
 
