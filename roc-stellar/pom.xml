@@ -10,10 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
-    <artifactId>roc-business</artifactId>
+    <artifactId>roc-stellar</artifactId>
     <modules>
-        <module>roc-business-java</module>
-        <module>roc-business-groovy</module>
+        <module>roc-stellar-java</module>
+        <module>roc-stellar-groovy</module>
     </modules>
 
 </project>

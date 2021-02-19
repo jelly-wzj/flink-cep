@@ -12,7 +12,7 @@
         <module>roc-common</module>
         <module>roc-core</module>
         <module>roc-web</module>
-        <module>roc-business</module>
+        <module>roc-stellar</module>
     </modules>
     <name>roc</name>
 
