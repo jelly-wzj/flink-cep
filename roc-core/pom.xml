@@ -29,12 +29,23 @@
         <druid.version>1.2.4</druid.version>
         <mysql.version>5.1.47</mysql.version>
         <groovy.version>3.0.7</groovy.version>
+        <reflections.version>0.9.12</reflections.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.roc</groupId>
             <artifactId>roc-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.roc</groupId>
+            <artifactId>roc-stellar-java</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.roc</groupId>
+            <artifactId>roc-stellar-groovy</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -172,6 +183,11 @@
             <scope>system</scope>
             <systemPath>‪C:\Program Files\Java\jdk1.8.0_281\lib\tools.jar</systemPath>
         </dependency>-->
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>${reflections.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

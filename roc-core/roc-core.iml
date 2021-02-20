@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -15,6 +16,8 @@
     <orderEntry type="library" name="Maven: com.google.guava:guava:20.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.8.1" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
+    <orderEntry type="module" module-name="roc-stellar-java" />
+    <orderEntry type="module" module-name="roc-stellar-groovy" />
     <orderEntry type="library" name="Maven: org.apache.flink:flink-core:1.11.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.flink:flink-annotations:1.11.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.flink:flink-metrics-core:1.11.3" level="project" />
@@ -35,7 +38,6 @@
     <orderEntry type="library" name="Maven: org.apache.flink:flink-shaded-netty:4.1.39.Final-11.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.flink:flink-shaded-jackson:2.10.1-11.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.flink:flink-shaded-zookeeper-3:3.4.14-11.0" level="project" />
-    <orderEntry type="library" name="Maven: org.javassist:javassist:3.24.0-GA" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.11.12" level="project" />
     <orderEntry type="library" name="Maven: com.typesafe.akka:akka-actor_2.11:2.5.21" level="project" />
     <orderEntry type="library" name="Maven: com.typesafe:config:1.3.3" level="project" />
@@ -108,15 +110,6 @@
     <orderEntry type="library" name="Maven: io.siddhi:siddhi-query-api:5.1.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.hadoop:hadoop-common:2.10.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.hadoop:hadoop-annotations:2.10.1" level="project" />
-    <orderEntry type="module-library">
-      <library name="Maven: jdk.tools:jdk.tools:1.8">
-        <CLASSES>
-          <root url="jar://C:/Program Files/Java/jdk1.8.0_281/lib/tools.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="Maven: xmlenc:xmlenc:0.52" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.2" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.4" level="project" />
@@ -175,6 +168,7 @@
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.75" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:druid:1.2.4" level="project" />
+    <orderEntry type="library" name="Maven: javax.annotation:javax.annotation-api:1.3.2" level="project" />
     <orderEntry type="library" name="Maven: commons-cli:commons-cli:1.4" level="project" />
     <orderEntry type="library" name="Maven: commons-dbutils:commons-dbutils:1.7" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.16" level="project" />
@@ -185,15 +179,6 @@
     <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-ant:3.0.7" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ant:ant:1.10.9" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.ant:ant-junit:1.10.9" level="project" />
-    <orderEntry type="module-library">
-      <library name="Maven: com.sun:tools:1.8.0">
-        <CLASSES>
-          <root url="jar://C:/Program Files/Java/jdk1.8.0_281/lib/tools.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.ant:ant-launcher:1.10.9" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.ant:ant-antlr:1.10.9" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-astbuilder:3.0.7" level="project" />
@@ -228,5 +213,7 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.testng:testng:7.3.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.beust:jcommander:1.78" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-xml:3.0.7" level="project" />
+    <orderEntry type="library" name="Maven: org.reflections:reflections:0.9.12" level="project" />
+    <orderEntry type="library" name="Maven: org.javassist:javassist:3.26.0-GA" level="project" />
   </component>
 </module>
