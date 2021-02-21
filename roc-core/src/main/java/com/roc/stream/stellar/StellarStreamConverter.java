@@ -1,8 +1,11 @@
 package com.roc.stream.stellar;
 
 import com.roc.entity.JobDetail;
-import com.roc.stellar.annotation.Stellar;
+import com.roc.stellar.dsl.Context;
+import com.roc.stellar.dsl.Stellar;
 import com.roc.stream.StreamFactory;
+import com.roc.stream.TransformStream;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.joor.Reflect;
@@ -23,7 +26,10 @@ public class StellarStreamConverter implements StreamFactory {
 
     @Override
     public <T> DataStream<T> convert(JobDetail jobDetail, StreamExecutionEnvironment env) {
-        return null;
+        List<TransformStream> transformStreams = buildSourceStreams(jobDetail.getSources(), env);
+        // WORD_COUNT_FUN()
+        String exp = jobDetail.getExp();
+        return buildStellarStream(StringUtils.substringBefore(exp, "("), union(transformStreams));
     }
 
 
@@ -31,13 +37,15 @@ public class StellarStreamConverter implements StreamFactory {
      * 通过 stellar function获取业务 DataStream
      *
      * @param name
-     * @param args
+     * @param upStream
      * @return
      */
-    private DataStream buildStellarStream(String name, List<Object> args) {
+    private <T> DataStream<T> buildStellarStream(String name, DataStream<T> upStream) {
         Reflections reflections = new Reflections(STELLAR_FUNCTIONS_PACKAGE);
         Class<?> stellarFunctionClass = reflections.getTypesAnnotatedWith(Stellar.class).stream().filter(stellarAnnotatedClass ->
                 stellarAnnotatedClass.getAnnotation(Stellar.class).name().equals(name)).findFirst().get();
-        return Reflect.onClass(stellarFunctionClass).create().call("apply", args).get();
+        Context context = new Context();
+        context.setUpstream(upStream);
+        return Reflect.onClass(stellarFunctionClass).create().call("apply", context).get();
     }
 }

@@ -1,10 +1,9 @@
 package com.jelly.test.java;
 
-import com.roc.stellar.annotation.Stellar;
+import com.roc.stellar.dsl.Stellar;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.reflections.Reflections;
-
-import java.util.Set;
 
 public class StellarTest {
 
@@ -15,5 +14,10 @@ public class StellarTest {
                 stellarAnnotatedClass.getAnnotation(Stellar.class).name().equals("DEFAULT_FLINK_FN")).findFirst().get();
 
         System.out.println(stellarFunctionClass);
+    }
+
+    @Test
+    public void test(){
+        System.out.println(StringUtils.substringBefore("WORD_COUNT_FUN", "("));
     }
 }

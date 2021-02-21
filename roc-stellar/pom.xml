@@ -16,4 +16,16 @@
         <module>roc-stellar-groovy</module>
     </modules>
 
+    <properties>
+        <scala.binary.version>2.11</scala.binary.version>
+        <flink.version>1.11.3</flink.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+    </dependencies>
 </project>

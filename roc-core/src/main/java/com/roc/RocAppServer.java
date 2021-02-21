@@ -121,11 +121,15 @@ public class RocAppServer extends AbstractStreamEnv {
                 return false;
             }
             String[] expContentArray = exp.split(separator);
-            if (!ExpType.get(expContentArray[0]).verify(expContentArray[1])) {
+            ExpType expType = ExpType.get(expContentArray[0]);
+            if (!expType.verify(expContentArray[1])) {
                 LOG.error("IllegalArgumentException: exp`s grammar error [" + ExpType.get(expContentArray[0]) + "]");
                 return false;
             } else {
                 jobDetail.setExp(expContentArray[1]);
+                if (StringUtils.isBlank(jobDetail.getStreamEngine())) {
+                    jobDetail.setStreamEngine(expType.engine);
+                }
             }
         } catch (IllegalAccessException e) {
             LOG.error(e.getMessage(), e);
@@ -141,31 +145,31 @@ public class RocAppServer extends AbstractStreamEnv {
 
 
     private enum ExpType {
-        NONE("none") {
+        NONE("none", null) {
             @Override
             public boolean verify(String content) {
                 // @NOTHING TODO
                 return false;
             }
-        }, CQL("cql") {
+        }, CQL("cql", "com.roc.stream.cep.SiddhiStreamConverter") {
             // siddhi sql 语法校验
             @Override
             public boolean verify(String content) {
                 return true;
             }
-        }, GROOVY_SCRIPT("groovy_script") {
+        }, SCRIPT("script", "com.roc.stream.cep.GroovyStreamConverter") {
             // groovy script 语法校验
             @Override
             public boolean verify(String content) {
                 return true;
             }
-        }, CLASS_NAME("class_name") {
-            // java,groovy　语言语法校验
+        }, STELLAR("stellar", "com.roc.stream.stellar.StellarStreamConverter") {
+            // stellar 语法校验
             @Override
             public boolean verify(String content) {
                 return true;
             }
-        }, FILE("file") {
+        }, FILE("file", "com.roc.stream.cep.GroovyStreamConverter") {
             // 文件类型校验
             @Override
             public boolean verify(String content) {
@@ -175,9 +179,11 @@ public class RocAppServer extends AbstractStreamEnv {
             }
         };
         private String name;
+        private String engine;
 
-        ExpType(String name) {
+        ExpType(String name, String engine) {
             this.name = name;
+            this.engine = engine;
         }
 
         public static ExpType get(String type) {

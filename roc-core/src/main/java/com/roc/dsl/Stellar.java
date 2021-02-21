@@ -1,10 +1,8 @@
-package com.roc.stellar.annotation;
+package com.roc.dsl;
 
 
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
 /**
  * Stellar
@@ -15,7 +13,6 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Stellar {
-    String namespace() default "";
 
     String name();
 

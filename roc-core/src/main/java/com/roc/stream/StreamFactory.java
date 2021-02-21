@@ -12,6 +12,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * StreamFactory
@@ -66,5 +67,23 @@ public interface StreamFactory {
         return new ArrayList<TransformStream>(sourceDetailList.size()) {{
             sourceDetailList.forEach(sourceDetail -> add(buildSourceStream(sourceDetail, env)));
         }};
+    }
+
+    /**
+     * 多流合并
+     *
+     * @param transformStreams
+     * @return
+     */
+    default <T> DataStream<T> union(List<TransformStream> transformStreams) {
+        TransformStream transformStream = transformStreams.remove(0);
+        DataStream<T> dataStream = (DataStream<T>) transformStream.getDataStream();
+        //　单流
+        if (transformStreams.isEmpty()) {
+            return dataStream;
+        }
+        // 多流
+        DataStream[] dataStreams = transformStreams.stream().map(ts -> ts.getDataStream()).collect(Collectors.toList()).toArray(new DataStream[]{});
+        return dataStream.union(dataStreams);
     }
 }
