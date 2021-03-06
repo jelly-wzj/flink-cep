@@ -10,7 +10,7 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 
 import java.util.LinkedHashMap;
 
-public class FlinkSteamFunction {
+public class FlinkSteamFunctions {
 
     @Stellar(name = "WORD_COUNT_FUN")
     public static class WordCountFunction implements StellarFunction {
